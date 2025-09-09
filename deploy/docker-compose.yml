@@ -1,0 +1,33 @@
+name: "cercle-api"
+
+services:
+  db:
+    image: postgres:17
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0stgr3s
+      POSTGRES_DB: cercledb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  node:
+    image: node:22
+    container_name: node-shell
+    working_dir: /app
+    volumes:
+      - ../:/app
+    stdin_open: true
+    tty: true
+    command: bash
+    ports:
+      - "8001:8001"
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
