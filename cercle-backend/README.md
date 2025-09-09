@@ -50,7 +50,7 @@ npm run dev
 - **GET** `/patients`  
   Retrieves a list of all patients in the database.
 
-- **POST** `/patient`  
+- **POST** `/patients`  
   Creates a new patient.  
   **Required fields in JSON body:**  
   - `name` (string)  

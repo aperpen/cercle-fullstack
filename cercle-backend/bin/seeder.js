@@ -5,21 +5,18 @@ const Patient = require('../src/models/patient')
 const Embryo = require('../src/models/embryo')
 
 async function up() {
-  await Patient.bulkCreate([
+  const [p1, p2, p3] = await Patient.bulkCreate([
     {
-      id: 1,
       name: 'Danny Williams',
       birthdate: '1990-01-02',
       sex: 'male',
     },
     {
-      id: 2,
       name: 'Kono Kalakaua',
       birthdate: '1993-04-05',
       sex: 'female',
     },
     {
-      id: 3,
       name: 'Catherine Rollins',
       birthdate: '1996-07-08',
       sex: 'female',
@@ -28,39 +25,34 @@ async function up() {
 
   await Embryo.bulkCreate([
     {
-      id: 1,
       fertilization_date: '2024-05-06',
       fertilization_method: 'ICSI',
       pgta_performed: true,
-      PatientId: 2,
+      PatientId: p2.getDataValue('id'),
     },
     {
-      id: 2,
       fertilization_date: '2024-05-06',
       fertilization_method: 'ICSI',
       pgta_performed: false,
-      PatientId: 2,
+      PatientId: p2.getDataValue('id'),
     },
     {
-      id: 3,
       fertilization_date: '2025-01-02',
       fertilization_method: 'ICSI',
       pgta_performed: false,
-      PatientId: 3,
+      PatientId: p3.getDataValue('id'),
     },
     {
-      id: 4,
       fertilization_date: '2025-01-02',
       fertilization_method: 'ICSI',
       pgta_performed: false,
-      PatientId: 3,
+      PatientId: p3.getDataValue('id'),
     },
     {
-      id: 5,
       fertilization_date: '2025-03-04',
       fertilization_method: 'Traditional',
       pgta_performed: false,
-      PatientId: 3,
+      PatientId: p3.getDataValue('id'),
     },
   ])
 }
@@ -88,8 +80,11 @@ sequelize
   .then(() => {
     console.log('✅ DB models synchronized')
 
-    const worker = mode === 'up' ? up : down
-    return worker()
+    return down()
+  })
+  .then(() => {
+    if (mode === 'up') return up()
+    else return true
   })
   .then(() => {
     console.log('✅ Seeder finished')
