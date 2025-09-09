@@ -1,4 +1,4 @@
-# Emogg API
+# Cercle API
 
 ## Installation
 
