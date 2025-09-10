@@ -10,6 +10,7 @@ Set up PostgreSQL credentials:
 * Host: postgres-db (or localhost if used outside docker)
 * Username: postgres
 * Password: p0stgr3s
+* DB: cercledb
 
 Relevant file: `src/config.js`
 
