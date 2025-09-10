@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const config = {
   DB_HOST: '',
   DB_USER: '',

@@ -1,6 +1,3 @@
-require('dotenv').config()
-
-const config = require('./config')
 require('./services/console') // Replace console
 
 const sequelize = require('./services/sequelize')
